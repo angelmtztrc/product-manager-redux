@@ -1,5 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+// Store
+import Store from './store';
 
 // components
 import Header from './components/Header';
@@ -10,14 +14,16 @@ import EditProduct from './components/EditProduct';
 function App() {
   return (
     <Router>
-      <Header />
-      <main className="container mt-16 mx-auto">
-        <Switch>
-          <Route exact path="/" component={Products} />
-          <Route exact path="/products/new" component={AddProduct} />
-          <Route exact path="/products/edit/:id" component={EditProduct} />
-        </Switch>
-      </main>
+      <Provider store={Store}>
+        <Header />
+        <main className="container mt-16 mx-auto">
+          <Switch>
+            <Route exact path="/" component={Products} />
+            <Route exact path="/products/new" component={AddProduct} />
+            <Route exact path="/products/edit/:id" component={EditProduct} />
+          </Switch>
+        </main>
+      </Provider>
     </Router>
   );
 }
