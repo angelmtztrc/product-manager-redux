@@ -1,3 +1,7 @@
+// constants
+import {} from '../constants';
+
+// initial state of the reducer
 const initialState = {
   products: [],
   loading: false,
