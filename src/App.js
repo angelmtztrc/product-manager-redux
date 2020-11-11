@@ -16,7 +16,7 @@ function App() {
     <Router>
       <Provider store={Store}>
         <Header />
-        <main className="container mt-16 mx-auto">
+        <main className="container relative mt-16 mx-auto">
           <Switch>
             <Route exact path="/" component={Products} />
             <Route exact path="/products/new" component={AddProduct} />

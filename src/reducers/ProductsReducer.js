@@ -28,7 +28,8 @@ export default function ProductsReducer(state = initialState, action) {
     case ADD_PRODUCT_FAIL:
       return {
         ...state,
-        loading: false
+        loading: false,
+        error: true
       };
     default:
       return state;

@@ -1,3 +1,6 @@
+// config
+import AxiosInstance from '../config/axios';
+
 // constants
 import {
   ADD_PRODUCT_FAIL,
@@ -6,16 +9,18 @@ import {
 } from '../constants';
 
 export function addProductAction(product) {
-  return dispatch => {
+  return async dispatch => {
     // initialize the action
     dispatch(createProductInit());
 
     try {
+      // save in api
+      await AxiosInstance.post('/products', product);
       // when a product is successfully created
       dispatch(createProductSuccess(product));
     } catch (error) {
       // when something is wrong
-      dispatch(createProductFail);
+      dispatch(createProductFail(true));
     }
   };
 }
@@ -32,6 +37,7 @@ const createProductSuccess = product => ({
 });
 
 // on something went wrong when creating a product
-const createProductFail = () => ({
-  type: ADD_PRODUCT_FAIL
+const createProductFail = status => ({
+  type: ADD_PRODUCT_FAIL,
+  payload: status
 });
