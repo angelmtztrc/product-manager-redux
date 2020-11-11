@@ -4,6 +4,26 @@
       "id": "4baf9d60-2adc",
       "name": "Orange juice",
       "price": 4.3
+    },
+    {
+      "name": "DenoJS Shirt",
+      "price": 10,
+      "id": "xN2Q9RAyL"
+    },
+    {
+      "id": "UkZgiRaSS",
+      "name": "NodeJS Shirt",
+      "price": 10
+    },
+    {
+      "id": "qLHfLPPTl",
+      "name": "JavaScript Shirt",
+      "price": 10
+    },
+    {
+      "id": "qUkGxGoPW",
+      "name": "JavaScript Shirt",
+      "price": 10
     }
   ]
 }

@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 // config
 import AxiosInstance from '../config/axios';
 
@@ -18,9 +20,22 @@ export function addProductAction(product) {
       await AxiosInstance.post('/products', product);
       // when a product is successfully created
       dispatch(createProductSuccess(product));
+
+      // show alert
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Product created successfully'
+      });
     } catch (error) {
       // when something is wrong
-      dispatch(createProductFail(true));
+      dispatch(createProductFail());
+      // show alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!'
+      });
     }
   };
 }
@@ -37,7 +52,6 @@ const createProductSuccess = product => ({
 });
 
 // on something went wrong when creating a product
-const createProductFail = status => ({
-  type: ADD_PRODUCT_FAIL,
-  payload: status
+const createProductFail = () => ({
+  type: ADD_PRODUCT_FAIL
 });

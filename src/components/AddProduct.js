@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import shortid from 'shortid';
 
 // actions
 import { addProductAction } from '../actions/ProductsActions';
 
-// components
-import Alert from './Alert';
-
-const AddProduct = () => {
+const AddProduct = ({ history }) => {
   // local state
   const [values, setValues] = useState({
     name: '',
@@ -18,10 +16,7 @@ const AddProduct = () => {
   const dispatch = useDispatch();
 
   // access to the values of the store
-  const [loading, error] = useSelector(state => [
-    state.products.loading,
-    state.products.error
-  ]);
+  const [loading] = useSelector(state => [state.products.loading]);
 
   // call the action
   const createProduct = product => dispatch(addProductAction(product));
@@ -46,12 +41,14 @@ const AddProduct = () => {
     }
 
     // create new product
-    createProduct({ ...values });
+    createProduct({ id: shortid.generate(), ...values });
+
+    // redirect user to home
+    history.push('/');
   };
 
   return (
     <div className="mx-auto p-8 w-full max-w-lg border border-gray-100 rounded-lg shadow">
-      {error ? <Alert message="Something went wrong" type="fail" /> : null}
       <h2 className="text-center text-3xl font-semibold">Add New Product</h2>
       <form onSubmit={handleSubmit} className="mt-5 w-full">
         <div className="mb-4">

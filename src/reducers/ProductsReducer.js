@@ -8,8 +8,7 @@ import {
 // initial state of the reducer
 const initialState = {
   products: [],
-  loading: false,
-  error: null
+  loading: false
 };
 
 export default function ProductsReducer(state = initialState, action) {
@@ -28,8 +27,7 @@ export default function ProductsReducer(state = initialState, action) {
     case ADD_PRODUCT_FAIL:
       return {
         ...state,
-        loading: false,
-        error: true
+        loading: false
       };
     default:
       return state;
