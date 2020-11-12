@@ -14,7 +14,8 @@ import {
   REMOVE_PRODUCT_ABORT,
   REMOVE_PRODUCT_FAIL,
   REMOVE_PRODUCT_INIT,
-  REMOVE_PRODUCT_SUCCESS
+  REMOVE_PRODUCT_SUCCESS,
+  SET_ACTIVE_INIT
 } from '../constants';
 
 //* Create new product
@@ -163,4 +164,16 @@ const removeProductAbort = () => ({
 // on something went wrong when deleting product
 const removeProductFail = () => ({
   type: REMOVE_PRODUCT_FAIL
+});
+
+//* Set active product
+export function setActiveProductAction(id) {
+  return dispatch => {
+    dispatch(setActiveProductInit(id));
+  };
+}
+
+const setActiveProductInit = id => ({
+  type: SET_ACTIVE_INIT,
+  payload: id
 });

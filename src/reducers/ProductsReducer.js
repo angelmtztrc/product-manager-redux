@@ -9,12 +9,14 @@ import {
   REMOVE_PRODUCT_ABORT,
   REMOVE_PRODUCT_FAIL,
   REMOVE_PRODUCT_INIT,
-  REMOVE_PRODUCT_SUCCESS
+  REMOVE_PRODUCT_SUCCESS,
+  SET_ACTIVE_INIT
 } from '../constants';
 
 // initial state of the reducer
 const initialState = {
   products: [],
+  product: null,
   loading: false
 };
 
@@ -74,6 +76,11 @@ export default function ProductsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false
+      };
+    case SET_ACTIVE_INIT:
+      return {
+        ...state,
+        product: state.products.find(product => product.id === action.payload)
       };
     default:
       return state;

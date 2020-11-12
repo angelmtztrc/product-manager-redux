@@ -1,6 +1,12 @@
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { removeProductsAction } from '../actions/ProductsActions';
+
+// actions
+import {
+  removeProductsAction,
+  setActiveProductAction
+} from '../actions/ProductsActions';
 
 const Product = ({ product, idx }) => {
   const { id, name, price } = product;
@@ -8,8 +14,18 @@ const Product = ({ product, idx }) => {
   // dispatch for call the action
   const dispatch = useDispatch();
 
+  // access to the routing
+  const history = useHistory();
+
   // call the action
   const deleteProduct = id => dispatch(removeProductsAction(id));
+  const setProduct = id => dispatch(setActiveProductAction(id));
+
+  // update a product
+  const handleUpdate = () => {
+    setProduct(id);
+    history.push(`/products/edit/${id}`);
+  };
 
   // remove product
   const handleRemove = () => {
@@ -22,7 +38,10 @@ const Product = ({ product, idx }) => {
       <td className="px-4 py-3 w-1/3 text-left">$ {price}</td>
       <td className="px-4 py-3 w-1/3 text-left">
         <div className="flex items-center justify-center">
-          <button className="px-6 py-2 bg-secondary rounded-l-lg">
+          <button
+            onClick={handleUpdate}
+            className="px-6 py-2 bg-secondary rounded-l-lg"
+          >
             <svg
               className="w-5 h-5 text-white"
               fill="currentColor"
