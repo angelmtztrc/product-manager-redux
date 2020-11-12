@@ -24,3 +24,5 @@ yarn-error.log*
 
 # tailwind build
 src/styles.css
+
+database.json
