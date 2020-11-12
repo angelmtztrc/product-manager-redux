@@ -7,9 +7,13 @@ import AxiosInstance from '../config/axios';
 import {
   ADD_PRODUCT_FAIL,
   ADD_PRODUCT_INIT,
-  ADD_PRODUCT_SUCCESS
+  ADD_PRODUCT_SUCCESS,
+  GET_PRODUCTS_FAIL,
+  GET_PRODUCTS_INIT,
+  GET_PRODUCTS_SUCCESS
 } from '../constants';
 
+//* Create new product
 export function addProductAction(product) {
   return async dispatch => {
     // initialize the action
@@ -54,4 +58,43 @@ const createProductSuccess = product => ({
 // on something went wrong when creating a product
 const createProductFail = () => ({
   type: ADD_PRODUCT_FAIL
+});
+
+//* Get all products
+export function getProductsAction() {
+  return async dispatch => {
+    dispatch(getProductsInit());
+
+    try {
+      // request to get all products
+      const response = await AxiosInstance.get('/products');
+
+      // save products in the state
+      dispatch(getProductsSuccess(response.data));
+    } catch (error) {
+      // when something is wrong
+      dispatch(getProductsFail());
+      // show alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong, try later!'
+      });
+    }
+  };
+}
+
+// initialize get products
+const getProductsInit = () => ({
+  type: GET_PRODUCTS_INIT
+});
+
+const getProductsSuccess = products => ({
+  type: GET_PRODUCTS_SUCCESS,
+  payload: products
+});
+
+// on something went wrong when creating a product
+const getProductsFail = () => ({
+  type: GET_PRODUCTS_FAIL
 });
