@@ -8,6 +8,9 @@ import {
   ADD_PRODUCT_FAIL,
   ADD_PRODUCT_INIT,
   ADD_PRODUCT_SUCCESS,
+  EDIT_PRODUCTS_FAIL,
+  EDIT_PRODUCTS_INIT,
+  EDIT_PRODUCTS_SUCCESS,
   GET_PRODUCTS_FAIL,
   GET_PRODUCTS_INIT,
   GET_PRODUCTS_SUCCESS,
@@ -166,6 +169,53 @@ const removeProductFail = () => ({
   type: REMOVE_PRODUCT_FAIL
 });
 
+//* update a product
+export function editProductAction(id, values) {
+  return async dispatch => {
+    dispatch(editProductInit());
+
+    try {
+      // send request
+      const response = await AxiosInstance.put(`/products/${id}`, values);
+
+      // save edited product in store
+      dispatch(editProductSuccess(response.data));
+
+      // show alert
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Product updated successfully'
+      });
+    } catch (error) {
+      // when something is wrong
+      dispatch(editProductFail());
+      // show alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!'
+      });
+    }
+  };
+}
+
+// initialize update product
+const editProductInit = () => ({
+  type: EDIT_PRODUCTS_INIT
+});
+
+// on successfully updated
+const editProductSuccess = product => ({
+  type: EDIT_PRODUCTS_SUCCESS,
+  payload: product
+});
+
+// on something went wrong on send request
+const editProductFail = () => ({
+  type: EDIT_PRODUCTS_FAIL
+});
+
 //* Set active product
 export function setActiveProductAction(id) {
   return dispatch => {
@@ -173,6 +223,7 @@ export function setActiveProductAction(id) {
   };
 }
 
+// set active product
 const setActiveProductInit = id => ({
   type: SET_ACTIVE_INIT,
   payload: id

@@ -3,6 +3,9 @@ import {
   ADD_PRODUCT_FAIL,
   ADD_PRODUCT_INIT,
   ADD_PRODUCT_SUCCESS,
+  EDIT_PRODUCTS_FAIL,
+  EDIT_PRODUCTS_INIT,
+  EDIT_PRODUCTS_SUCCESS,
   GET_PRODUCTS_FAIL,
   GET_PRODUCTS_INIT,
   GET_PRODUCTS_SUCCESS,
@@ -73,6 +76,27 @@ export default function ProductsReducer(state = initialState, action) {
         loading: false
       };
     case REMOVE_PRODUCT_FAIL:
+      return {
+        ...state,
+        loading: false
+      };
+    case EDIT_PRODUCTS_INIT:
+      return {
+        ...state,
+        loading: true
+      };
+    case EDIT_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        products: [
+          ...state.products.map(product =>
+            product.id === action.payload.id ? action.payload : product
+          )
+        ],
+        product: null
+      };
+    case EDIT_PRODUCTS_FAIL:
       return {
         ...state,
         loading: false
