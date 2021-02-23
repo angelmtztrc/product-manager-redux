@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 // Store
-import Store from './store';
+import store from './store';
 
 // components
 import Header from './components/Header';
@@ -14,7 +14,7 @@ import EditProduct from './components/EditProduct';
 function App() {
   return (
     <Router>
-      <Provider store={Store}>
+      <Provider store={store}>
         <Header />
         <main className="container relative mt-16 mx-auto">
           <Switch>
