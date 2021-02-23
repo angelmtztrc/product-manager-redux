@@ -1,9 +1,14 @@
 {
   "products": [
     {
-      "id": "V1StGXR8_Z5jdHi6B-myT",
-      "name": "Halo TMCC",
-      "price": 56
+      "name": "Halo 5",
+      "price": 56,
+      "id": "V1StGXR8_Z5jdHi6B-myT"
+    },
+    {
+      "id": "7DSPBiAHM",
+      "name": "Xbox Series X",
+      "price": 400
     }
   ]
 }

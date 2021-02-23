@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 // actions
 import {
-  removeProductsAction,
+  removeProductAction,
   setActiveProductAction
 } from '../actions/ProductsActions';
 
@@ -17,19 +17,16 @@ const Product = ({ product, idx }) => {
   // access to the routing
   const history = useHistory();
 
-  // call the action
-  const deleteProduct = id => dispatch(removeProductsAction(id));
-  const setProduct = id => dispatch(setActiveProductAction(id));
-
   // update a product
   const handleUpdate = () => {
-    setProduct(id);
+    dispatch(setActiveProductAction(id));
+
     history.push(`/products/edit/${id}`);
   };
 
   // remove product
   const handleRemove = () => {
-    deleteProduct(id);
+    dispatch(removeProductAction(id));
   };
 
   return (

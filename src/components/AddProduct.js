@@ -18,9 +18,6 @@ const AddProduct = ({ history }) => {
   // access to the values of the store
   const [loading] = useSelector(state => [state.products.loading]);
 
-  // call the action
-  const createProduct = product => dispatch(addProductAction(product));
-
   // handle data of the form
   const handleChange = e => {
     setValues({
@@ -41,7 +38,7 @@ const AddProduct = ({ history }) => {
     }
 
     // create new product
-    createProduct({ id: shortid.generate(), ...values });
+    dispatch(addProductAction({ id: shortid.generate(), ...values }));
 
     // redirect user to home
     history.push('/');

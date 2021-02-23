@@ -109,7 +109,7 @@ const getProductsFail = () => ({
 });
 
 //* Remove a product
-export function removeProductsAction(id) {
+export function removeProductAction(id) {
   return async dispatch => {
     dispatch(removeProductInit());
     await Swal.fire({

@@ -5,7 +5,7 @@ import { editProductAction } from '../actions/ProductsActions';
 
 const EditProduct = ({ history }) => {
   // get product
-  const [product] = useSelector(state => [state.products.product]);
+  const { product } = useSelector(state => state.products);
 
   // local state
   const [values, setValues] = useState({
@@ -15,9 +15,6 @@ const EditProduct = ({ history }) => {
 
   // dispatch to call the actions
   const dispatch = useDispatch();
-
-  // actions
-  const updateProduct = (id, values) => dispatch(editProductAction(id, values));
 
   // handle form values
   const handleChange = e => {
@@ -39,7 +36,7 @@ const EditProduct = ({ history }) => {
     }
 
     // send request
-    updateProduct(product.id, values);
+    dispatch(editProductAction(product.id, values));
 
     // redirrect user
     history.push('/');

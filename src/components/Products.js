@@ -13,10 +13,7 @@ const Products = () => {
   const dispatch = useDispatch();
 
   // access to the values of the store
-  const [loading, products] = useSelector(state => [
-    state.products.loading,
-    state.products.products
-  ]);
+  const { loading, products } = useSelector(state => state.products);
 
   // call the action
   const getProducts = () => dispatch(getProductsAction());
