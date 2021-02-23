@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.1.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^12.1.4",
-    "autoprefixer": "^10.0.1",
+    "autoprefixer": "^9",
     "axios": "^0.21.0",
     "cross-env": "^7.0.2",
     "json-server": "^0.16.2",
@@ -21,16 +22,13 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "shortid": "^2.2.16",
-    "sweetalert2": "^10.9.1",
-    "tailwindcss": "^1.9.1"
+    "sweetalert2": "^10.9.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject",
-    "build-css:develop": "tailwindcss build tailwind.css -o src/styles.css",
-    "build-css:production": "cross-env NODE_ENV=production tailwindcss build tailwind.css -o src/styles.css",
     "format": "prettier --write \"./src/**/*.{js,jsx}\""
   },
   "eslintConfig": {
@@ -49,5 +47,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.0.3",
+    "postcss": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   }
 }

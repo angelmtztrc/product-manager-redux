@@ -1,12 +1,6 @@
-// Add your custom configurations
 module.exports = {
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-    defaultLineHeights: true,
-    standardFontWeights: true
-  },
   purge: ['src/**/*.js', 'src/**/*.jsx', 'public/*.html'],
+  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
@@ -15,6 +9,8 @@ module.exports = {
       }
     }
   },
-  variants: {},
+  variants: {
+    extend: {}
+  },
   plugins: []
 };
