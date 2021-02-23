@@ -39,19 +39,19 @@ const Products = () => {
             <thead className="text-white bg-primary">
               <tr>
                 <th
-                  className="px-4 py-3 w-1/3 text-left font-semibold uppercase"
+                  className="px-4 py-3 w-1/3 text-center font-semibold uppercase"
                   scope="col"
                 >
                   Name
                 </th>
                 <th
-                  className="px-4 py-3 w-1/3 text-left font-semibold uppercase"
+                  className="px-4 py-3 w-1/3 text-center font-semibold uppercase"
                   scope="col"
                 >
                   Price
                 </th>
                 <th
-                  className="px-4 py-3 w-1/3 text-left font-semibold uppercase"
+                  className="px-4 py-3 w-1/3 text-center font-semibold uppercase"
                   scope="col"
                 >
                   Actions

@@ -34,9 +34,9 @@ const Product = ({ product, idx }) => {
 
   return (
     <tr className={idx % 2 ? 'bg-gray-100' : ''}>
-      <td className="px-4 py-3 w-1/3 text-left">{name}</td>
-      <td className="px-4 py-3 w-1/3 text-left">$ {price}</td>
-      <td className="px-4 py-3 w-1/3 text-left">
+      <td className="px-4 py-3 w-1/3 text-center">{name}</td>
+      <td className="px-4 py-3 w-1/3 text-center">$ {price}</td>
+      <td className="px-4 py-3 w-1/3 text-center">
         <div className="flex items-center justify-center">
           <button
             onClick={handleUpdate}
