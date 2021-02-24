@@ -3,10 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 // actions
-import {
-  removeProductAction,
-  setActiveProductAction
-} from '../actions/ProductsActions';
+import { removeProduct, setActiveProduct } from '../actions/ProductsActions';
 
 const Product = ({ product, idx }) => {
   const { id, name, price } = product;
@@ -19,14 +16,14 @@ const Product = ({ product, idx }) => {
 
   // update a product
   const handleUpdate = () => {
-    dispatch(setActiveProductAction(id));
+    dispatch(setActiveProduct(id));
 
     history.push(`/products/edit/${id}`);
   };
 
   // remove product
   const handleRemove = () => {
-    dispatch(removeProductAction(id));
+    dispatch(removeProduct(id));
   };
 
   return (

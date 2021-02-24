@@ -21,28 +21,40 @@ import {
   SET_ACTIVE_INIT
 } from '../constants';
 
-//* Create new product
-export function addProductAction(product) {
+/**
+ * Create a product
+ * @param object product
+ */
+export function addProduct(product) {
   return async dispatch => {
     // initialize the action
-    dispatch(createProductInit());
+    dispatch(() => ({
+      type: ADD_PRODUCT_INIT
+    }));
 
     try {
-      // save in api
+      // send request to the api
       await AxiosInstance.post('/products', product);
-      // when a product is successfully created
-      dispatch(createProductSuccess(product));
 
-      // show alert
+      // successfully product created
+      dispatch(() => ({
+        type: ADD_PRODUCT_SUCCESS,
+        payload: product
+      }));
+
+      // display an alert
       Swal.fire({
         icon: 'success',
         title: 'Success',
         text: 'Product created successfully'
       });
     } catch (error) {
-      // when something is wrong
-      dispatch(createProductFail());
-      // show alert
+      // if something went wrong
+      dispatch(() => ({
+        type: ADD_PRODUCT_FAIL
+      }));
+
+      // display an alert
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -52,37 +64,32 @@ export function addProductAction(product) {
   };
 }
 
-// initialize create product
-const createProductInit = () => ({
-  type: ADD_PRODUCT_INIT
-});
-
-// on product successfully created
-const createProductSuccess = product => ({
-  type: ADD_PRODUCT_SUCCESS,
-  payload: product
-});
-
-// on something went wrong when creating a product
-const createProductFail = () => ({
-  type: ADD_PRODUCT_FAIL
-});
-
-//* Get all products
-export function getProductsAction() {
+/**
+ * Get all of the products
+ */
+export function getProducts() {
   return async dispatch => {
-    dispatch(getProductsInit());
+    // initialize the action
+    dispatch({
+      type: GET_PRODUCTS_INIT
+    });
 
     try {
       // request to get all products
       const response = await AxiosInstance.get('/products');
-
+      console.log(response);
       // save products in the state
-      dispatch(getProductsSuccess(response.data));
+      dispatch({
+        type: GET_PRODUCTS_SUCCESS,
+        payload: response.data
+      });
     } catch (error) {
-      // when something is wrong
-      dispatch(getProductsFail());
-      // show alert
+      // if something went wrong
+      dispatch({
+        type: GET_PRODUCTS_FAIL
+      });
+
+      // display an alert
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -92,26 +99,18 @@ export function getProductsAction() {
   };
 }
 
-// initialize get products
-const getProductsInit = () => ({
-  type: GET_PRODUCTS_INIT
-});
-
-// on request successfully
-const getProductsSuccess = products => ({
-  type: GET_PRODUCTS_SUCCESS,
-  payload: products
-});
-
-// on something went wrong when creating a product
-const getProductsFail = () => ({
-  type: GET_PRODUCTS_FAIL
-});
-
-//* Remove a product
-export function removeProductAction(id) {
+/**
+ * Delete a product by id
+ * @param string id
+ */
+export function removeProduct(id) {
   return async dispatch => {
-    dispatch(removeProductInit());
+    // initialize the action
+    dispatch(() => ({
+      type: REMOVE_PRODUCT_INIT
+    }));
+
+    // display an Swal Alert for confirmation
     await Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -126,15 +125,20 @@ export function removeProductAction(id) {
           // request to delete product
           await AxiosInstance.delete(`/products/${id}`);
 
-          // remove from the store
-          dispatch(removeProductSuccess(id));
+          // remove product from the store
+          dispatch(() => ({
+            type: REMOVE_PRODUCT_SUCCESS,
+            payload: id
+          }));
 
-          // show alert
+          // display a success alert
           Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
         } catch (error) {
-          // when something is wrong
-          dispatch(removeProductFail());
-          // show alert
+          // if something went wrong
+          dispatch(() => ({
+            type: REMOVE_PRODUCT_FAIL
+          }));
+          // display an alert
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -142,55 +146,50 @@ export function removeProductAction(id) {
           });
         }
       } else {
-        dispatch(removeProductAbort());
+        // if the user abort the operation
+        dispatch(() => ({
+          type: REMOVE_PRODUCT_ABORT
+        }));
       }
     });
   };
 }
 
-// initialize delete product
-const removeProductInit = () => ({
-  type: REMOVE_PRODUCT_INIT
-});
-
-// on product successfully deleted
-const removeProductSuccess = id => ({
-  type: REMOVE_PRODUCT_SUCCESS,
-  payload: id
-});
-
-// on cancel the delete action
-const removeProductAbort = () => ({
-  type: REMOVE_PRODUCT_ABORT
-});
-
-// on something went wrong when deleting product
-const removeProductFail = () => ({
-  type: REMOVE_PRODUCT_FAIL
-});
-
-//* update a product
-export function editProductAction(id, values) {
+/**
+ * Update a product by id
+ * @param string id
+ * @param object values
+ */
+export function updateProduct(id, values) {
   return async dispatch => {
-    dispatch(editProductInit());
+    // initialize the action
+    dispatch(() => ({
+      type: EDIT_PRODUCTS_INIT
+    }));
 
     try {
       // send request
       const response = await AxiosInstance.put(`/products/${id}`, values);
 
       // save edited product in store
-      dispatch(editProductSuccess(response.data));
+      dispatch(() => ({
+        type: EDIT_PRODUCTS_SUCCESS,
+        payload: response.data
+      }));
 
-      // show alert
+      // display a success alert
       Swal.fire({
         icon: 'success',
         title: 'Success',
         text: 'Product updated successfully'
       });
     } catch (error) {
-      // when something is wrong
-      dispatch(editProductFail());
-      // show alert
+      // if something went wrong
+      dispatch(() => ({
+        type: EDIT_PRODUCTS_FAIL
+      }));
+
+      // display an alert
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -200,31 +199,15 @@ export function editProductAction(id, values) {
   };
 }
 
-// initialize update product
-const editProductInit = () => ({
-  type: EDIT_PRODUCTS_INIT
-});
-
-// on successfully updated
-const editProductSuccess = product => ({
-  type: EDIT_PRODUCTS_SUCCESS,
-  payload: product
-});
-
-// on something went wrong on send request
-const editProductFail = () => ({
-  type: EDIT_PRODUCTS_FAIL
-});
-
-//* Set active product
-export function setActiveProductAction(id) {
+/**
+ * Set a active product in the store
+ * @param string id
+ */
+export function setActiveProduct(id) {
   return dispatch => {
-    dispatch(setActiveProductInit(id));
+    dispatch(() => ({
+      type: SET_ACTIVE_INIT,
+      payload: id
+    }));
   };
 }
-
-// set active product
-const setActiveProductInit = id => ({
-  type: SET_ACTIVE_INIT,
-  payload: id
-});

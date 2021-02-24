@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // actions
-import { getProductsAction } from '../actions/ProductsActions';
+import { getProducts } from '../actions/ProductsActions';
 
 // components
 import Product from './Product';
@@ -13,15 +13,14 @@ const Products = () => {
   const dispatch = useDispatch();
 
   // access to the values of the store
-  const { loading, products } = useSelector(state => state.products);
-
-  // call the action
-  const getProducts = () => dispatch(getProductsAction());
+  const [loading, products] = useSelector(state => [
+    state.products.loading,
+    state.products.products
+  ]);
 
   useEffect(() => {
     // fetch all products
-    getProducts();
-
+    dispatch(getProducts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import shortid from 'shortid';
 
 // actions
-import { addProductAction } from '../actions/ProductsActions';
+import { addProduct } from '../actions/ProductsActions';
 
 const AddProduct = ({ history }) => {
   // local state
@@ -16,7 +16,7 @@ const AddProduct = ({ history }) => {
   const dispatch = useDispatch();
 
   // access to the values of the store
-  const [loading] = useSelector(state => [state.products.loading]);
+  const { loading } = useSelector(state => state.products);
 
   // handle data of the form
   const handleChange = e => {
@@ -38,7 +38,7 @@ const AddProduct = ({ history }) => {
     }
 
     // create new product
-    dispatch(addProductAction({ id: shortid.generate(), ...values }));
+    dispatch(addProduct({ id: shortid.generate(), ...values }));
 
     // redirect user to home
     history.push('/');
