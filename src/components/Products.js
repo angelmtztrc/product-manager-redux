@@ -2,25 +2,26 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // actions
-import { getProducts } from '../actions/ProductsActions';
+import { getProductsAction } from '../actions/ProductsActions';
 
 // components
 import Product from './Product';
 import ProductsSkeleton from './ProductsSkeleton';
 
 const Products = () => {
-  // dispatch to call the actions
-  const dispatch = useDispatch();
-
   // access to the values of the store
   const [loading, products] = useSelector(state => [
     state.products.loading,
     state.products.products
   ]);
 
+  // dispatch to call the actions
+  const dispatch = useDispatch();
+
   useEffect(() => {
     // fetch all products
-    dispatch(getProducts());
+    dispatch(getProductsAction());
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

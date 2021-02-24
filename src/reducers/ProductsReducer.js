@@ -1,112 +1,96 @@
-// constants
-import {
-  ADD_PRODUCT_FAIL,
-  ADD_PRODUCT_INIT,
-  ADD_PRODUCT_SUCCESS,
-  EDIT_PRODUCTS_FAIL,
-  EDIT_PRODUCTS_INIT,
-  EDIT_PRODUCTS_SUCCESS,
-  GET_PRODUCTS_FAIL,
-  GET_PRODUCTS_INIT,
-  GET_PRODUCTS_SUCCESS,
-  REMOVE_PRODUCT_ABORT,
-  REMOVE_PRODUCT_FAIL,
-  REMOVE_PRODUCT_INIT,
-  REMOVE_PRODUCT_SUCCESS,
-  SET_ACTIVE_INIT
-} from '../constants';
+import { createSlice } from '@reduxjs/toolkit';
 
-// initial state of the reducer
-const initialState = {
-  products: [],
-  product: null,
-  loading: false
-};
-
-export default function ProductsReducer(state = initialState, action) {
-  switch (action.type) {
-    case ADD_PRODUCT_INIT:
-      return {
-        ...state,
-        loading: true
-      };
-    case ADD_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        products: [...state.products, action.payload]
-      };
-    case ADD_PRODUCT_FAIL:
-      return {
-        ...state,
-        loading: false
-      };
-    case GET_PRODUCTS_INIT:
-      return {
-        ...state,
-        loading: true
-      };
-    case GET_PRODUCTS_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        products: action.payload
-      };
-    case GET_PRODUCTS_FAIL:
-      return {
-        ...state,
-        loading: false
-      };
-    case REMOVE_PRODUCT_INIT:
-      return {
-        ...state,
-        loading: true
-      };
-    case REMOVE_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        products: state.products.filter(
-          product => product.id !== action.payload
+export const ProductSlice = createSlice({
+  name: 'products',
+  initialState: {
+    products: [],
+    product: null,
+    loading: false,
+    hasError: false
+  },
+  reducers: {
+    getProducts: state => {
+      state.loading = true;
+    },
+    getProductsSuccess: (state, { payload }) => {
+      state.products = payload;
+      state.loading = false;
+      state.hasError = false;
+    },
+    getProductsFailure: state => {
+      state.loading = false;
+      state.hasError = true;
+    },
+    addProduct: state => {
+      state.loading = true;
+    },
+    addProductSuccess: (state, { payload }) => {
+      state.products = [...state.products, payload];
+      state.loading = false;
+      state.hasError = false;
+    },
+    addProductFailure: state => {
+      state.loading = false;
+      state.hasError = true;
+    },
+    setProduct: (state, { payload }) => {
+      state.product = state.products.find(product => product.id === payload);
+    },
+    updateProduct: state => {
+      state.loading = true;
+    },
+    updateProductSuccess: (state, { payload }) => {
+      state.products = [
+        ...state.products.map(product =>
+          product.id === payload.id ? payload : product
         )
-      };
-    case REMOVE_PRODUCT_ABORT:
-      return {
-        ...state,
-        loading: false
-      };
-    case REMOVE_PRODUCT_FAIL:
-      return {
-        ...state,
-        loading: false
-      };
-    case EDIT_PRODUCTS_INIT:
-      return {
-        ...state,
-        loading: true
-      };
-    case EDIT_PRODUCTS_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        products: [
-          ...state.products.map(product =>
-            product.id === action.payload.id ? action.payload : product
-          )
-        ],
-        product: null
-      };
-    case EDIT_PRODUCTS_FAIL:
-      return {
-        ...state,
-        loading: false
-      };
-    case SET_ACTIVE_INIT:
-      return {
-        ...state,
-        product: state.products.find(product => product.id === action.payload)
-      };
-    default:
-      return state;
+      ];
+      state.loading = false;
+      state.hasError = false;
+      state.product = null;
+    },
+    updateProductFailure: state => {
+      state.loading = false;
+      state.hasError = true;
+    },
+    removeProduct: state => {
+      state.loading = true;
+    },
+    removeProductSuccess: (state, { payload }) => {
+      state.products = [
+        ...state.products.filter(product => product.id !== payload)
+      ];
+      state.loading = false;
+      state.hasError = false;
+    },
+    removeProductAbort: state => {
+      state.loading = false;
+      state.hasError = false;
+    },
+    removeProductFailure: state => {
+      state.loading = false;
+      state.hasError = true;
+    }
   }
-}
+});
+
+// Actions in Slice
+export const {
+  getProducts,
+  getProductsSuccess,
+  getProductsFailure,
+  addProduct,
+  addProductSuccess,
+  addProductFailure,
+  setProduct,
+  updateProduct,
+  updateProductSuccess,
+  updateProductFailure,
+  removeProduct,
+  removeProductSuccess,
+  removeProductAbort,
+  removeProductFailure
+} = ProductSlice.actions;
+
+// Reducer
+export default ProductSlice.reducer;

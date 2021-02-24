@@ -1,14 +1,24 @@
 {
   "products": [
     {
-      "name": "Halo 5",
-      "price": 56,
-      "id": "V1StGXR8_Z5jdHi6B-myT"
-    },
-    {
       "id": "7DSPBiAHM",
       "name": "Xbox Series X",
       "price": 400
+    },
+    {
+      "id": "qNPI3Xr30",
+      "name": "NextJS T-Shirt",
+      "price": 10
+    },
+    {
+      "name": "Cookie",
+      "price": 5,
+      "id": "qKz0gWYfY"
+    },
+    {
+      "id": "7zUR7MAA8",
+      "name": "Hello World!",
+      "price": 10
     }
   ]
 }

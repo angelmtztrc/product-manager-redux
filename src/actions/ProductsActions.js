@@ -1,95 +1,39 @@
 import Swal from 'sweetalert2';
-
-// config
 import AxiosInstance from '../config/axios';
 
-// constants
+// actions in slice
 import {
-  ADD_PRODUCT_FAIL,
-  ADD_PRODUCT_INIT,
-  ADD_PRODUCT_SUCCESS,
-  EDIT_PRODUCTS_FAIL,
-  EDIT_PRODUCTS_INIT,
-  EDIT_PRODUCTS_SUCCESS,
-  GET_PRODUCTS_FAIL,
-  GET_PRODUCTS_INIT,
-  GET_PRODUCTS_SUCCESS,
-  REMOVE_PRODUCT_ABORT,
-  REMOVE_PRODUCT_FAIL,
-  REMOVE_PRODUCT_INIT,
-  REMOVE_PRODUCT_SUCCESS,
-  SET_ACTIVE_INIT
-} from '../constants';
+  addProduct,
+  addProductSuccess,
+  addProductFailure,
+  getProducts,
+  getProductsFailure,
+  getProductsSuccess,
+  setProduct,
+  updateProduct,
+  updateProductSuccess,
+  updateProductFailure,
+  removeProduct,
+  removeProductSuccess,
+  removeProductAbort,
+  removeProductFailure
+} from '../reducers/ProductsReducer';
 
-/**
- * Create a product
- * @param object product
- */
-export function addProduct(product) {
+export const getProductsAction = () => {
   return async dispatch => {
     // initialize the action
-    dispatch(() => ({
-      type: ADD_PRODUCT_INIT
-    }));
-
+    dispatch(getProducts());
     try {
-      // send request to the api
-      await AxiosInstance.post('/products', product);
-
-      // successfully product created
-      dispatch(() => ({
-        type: ADD_PRODUCT_SUCCESS,
-        payload: product
-      }));
-
-      // display an alert
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Product created successfully'
-      });
-    } catch (error) {
-      // if something went wrong
-      dispatch(() => ({
-        type: ADD_PRODUCT_FAIL
-      }));
-
-      // display an alert
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!'
-      });
-    }
-  };
-}
-
-/**
- * Get all of the products
- */
-export function getProducts() {
-  return async dispatch => {
-    // initialize the action
-    dispatch({
-      type: GET_PRODUCTS_INIT
-    });
-
-    try {
-      // request to get all products
+      // fetch all of the products from the API
       const response = await AxiosInstance.get('/products');
-      console.log(response);
-      // save products in the state
-      dispatch({
-        type: GET_PRODUCTS_SUCCESS,
-        payload: response.data
-      });
+
+      // save in the store
+      dispatch(getProductsSuccess(response.data));
     } catch (error) {
       // if something went wrong
-      dispatch({
-        type: GET_PRODUCTS_FAIL
-      });
+      dispatch(getProductsFailure());
 
-      // display an alert
+      // display an error
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -97,20 +41,79 @@ export function getProducts() {
       });
     }
   };
-}
+};
 
-/**
- * Delete a product by id
- * @param string id
- */
-export function removeProduct(id) {
+export const addProductAction = product => {
   return async dispatch => {
     // initialize the action
-    dispatch(() => ({
-      type: REMOVE_PRODUCT_INIT
-    }));
+    dispatch(addProduct());
+    try {
+      // send the request to the API
+      await AxiosInstance.post('/products', product);
 
-    // display an Swal Alert for confirmation
+      // product successfully created
+      dispatch(addProductSuccess(product));
+
+      // display a success message
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Product created successfully'
+      });
+    } catch (error) {
+      // if something went wrong
+      dispatch(addProductFailure());
+
+      // display an error
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong, try later!'
+      });
+    }
+  };
+};
+
+export const setProductAction = id => {
+  return dispatch => {
+    dispatch(setProduct(id));
+  };
+};
+
+export const updateProductAction = (id, values) => {
+  return async dispatch => {
+    dispatch(updateProduct());
+    try {
+      // send request for update a product
+      const response = await AxiosInstance.put(`/products/${id}`, values);
+
+      // save the edited product in store
+      dispatch(updateProductSuccess(response.data));
+
+      // display a success message
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Product updated successfully'
+      });
+    } catch (error) {
+      // if something went wrong
+      dispatch(updateProductFailure());
+
+      // display an error
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong, try later!'
+      });
+    }
+  };
+};
+
+export const removeProductAction = id => {
+  return async dispatch => {
+    dispatch(removeProduct());
+
     await Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -122,92 +125,28 @@ export function removeProduct(id) {
     }).then(async result => {
       if (result.isConfirmed) {
         try {
-          // request to delete product
+          // send request for delete a product
           await AxiosInstance.delete(`/products/${id}`);
 
-          // remove product from the store
-          dispatch(() => ({
-            type: REMOVE_PRODUCT_SUCCESS,
-            payload: id
-          }));
+          // remove from the store
+          dispatch(removeProductSuccess(id));
 
-          // display a success alert
+          // show alert
           Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
         } catch (error) {
           // if something went wrong
-          dispatch(() => ({
-            type: REMOVE_PRODUCT_FAIL
-          }));
-          // display an alert
+          dispatch(removeProductFailure());
+
+          // display an error
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong!'
+            text: 'Something went wrong, try later!'
           });
         }
       } else {
-        // if the user abort the operation
-        dispatch(() => ({
-          type: REMOVE_PRODUCT_ABORT
-        }));
+        dispatch(removeProductAbort());
       }
     });
   };
-}
-
-/**
- * Update a product by id
- * @param string id
- * @param object values
- */
-export function updateProduct(id, values) {
-  return async dispatch => {
-    // initialize the action
-    dispatch(() => ({
-      type: EDIT_PRODUCTS_INIT
-    }));
-
-    try {
-      // send request
-      const response = await AxiosInstance.put(`/products/${id}`, values);
-
-      // save edited product in store
-      dispatch(() => ({
-        type: EDIT_PRODUCTS_SUCCESS,
-        payload: response.data
-      }));
-
-      // display a success alert
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Product updated successfully'
-      });
-    } catch (error) {
-      // if something went wrong
-      dispatch(() => ({
-        type: EDIT_PRODUCTS_FAIL
-      }));
-
-      // display an alert
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!'
-      });
-    }
-  };
-}
-
-/**
- * Set a active product in the store
- * @param string id
- */
-export function setActiveProduct(id) {
-  return dispatch => {
-    dispatch(() => ({
-      type: SET_ACTIVE_INIT,
-      payload: id
-    }));
-  };
-}
+};

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import shortid from 'shortid';
+import { useDispatch, useSelector } from 'react-redux';
 
 // actions
-import { addProduct } from '../actions/ProductsActions';
+import { addProductAction } from '../actions/ProductsActions';
 
 const AddProduct = ({ history }) => {
   // local state
@@ -38,7 +38,7 @@ const AddProduct = ({ history }) => {
     }
 
     // create new product
-    dispatch(addProduct({ id: shortid.generate(), ...values }));
+    dispatch(addProductAction({ id: shortid.generate(), ...values }));
 
     // redirect user to home
     history.push('/');

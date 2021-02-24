@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProduct } from '../actions/ProductsActions';
+
+// actions
+import { updateProductAction } from '../actions/ProductsActions';
 
 const EditProduct = ({ history }) => {
   // get product
@@ -36,7 +38,7 @@ const EditProduct = ({ history }) => {
     }
 
     // send request
-    dispatch(updateProduct(product.id, values));
+    dispatch(updateProductAction(product.id, values));
 
     // redirrect user
     history.push('/');
