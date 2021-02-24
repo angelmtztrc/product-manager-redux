@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 // Store
@@ -21,6 +26,7 @@ function App() {
             <Route exact path="/" component={Products} />
             <Route exact path="/products/new" component={AddProduct} />
             <Route exact path="/products/edit/:id" component={EditProduct} />
+            <Redirect to="/" />
           </Switch>
         </main>
       </Provider>

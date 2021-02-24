@@ -10,10 +10,7 @@ import ProductsSkeleton from './ProductsSkeleton';
 
 const Products = () => {
   // access to the values of the store
-  const [loading, products] = useSelector(state => [
-    state.products.loading,
-    state.products.products
-  ]);
+  const { loading, products } = useSelector(state => state.products);
 
   // dispatch to call the actions
   const dispatch = useDispatch();

@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests in <App/> should render the component successfully 1`] = `
+Array [
+  <nav
+    className="py-8 w-full bg-primary"
+  >
+    <div
+      className="items-ce container flex items-center justify-between mx-auto text-white"
+    >
+      <h1
+        className="text-4xl font-bold"
+      >
+        <a
+          href="/"
+          onClick={[Function]}
+        >
+          Product Manager - Redux
+        </a>
+      </h1>
+      <a
+        className="px-6 py-3 font-bold bg-secondary rounded-lg uppercase"
+        href="/products/new"
+        onClick={[Function]}
+      >
+        Add Product
+      </a>
+    </div>
+  </nav>,
+  <main
+    className="container relative mt-16 mx-auto"
+  >
+    Array [
+      <h2
+        className="text-center text-3xl font-semibold"
+      >
+        Product Listing
+      </h2>,
+      <div
+        className="mt-8"
+      >
+        <div
+          className="grid gap-4 grid-cols-1 animate-pulse"
+        >
+          <div
+            className="col-span-1 px-4 py-2 w-full h-12 bg-gray-300 rounded-lg"
+          />
+          <div
+            className="grid gap-4 col-span-1 grid-cols-3"
+          >
+            <div
+              className="col-span-1 px-4 py-2 h-12 bg-gray-300 rounded-lg"
+            />
+            <div
+              className="col-span-1 px-4 py-2 h-12 bg-gray-300 rounded-lg"
+            />
+            <div
+              className="col-span-1 px-4 py-2 h-12 bg-gray-300 rounded-lg"
+            />
+            <div
+              className="col-span-1 px-4 py-2 h-12 bg-gray-300 rounded-lg"
+            />
+            <div
+              className="col-span-1 px-4 py-2 h-12 bg-gray-300 rounded-lg"
+            />
+            <div
+              className="col-span-1 px-4 py-2 h-12 bg-gray-300 rounded-lg"
+            />
+            <div
+              className="col-span-1 px-4 py-2 h-12 bg-gray-300 rounded-lg"
+            />
+            <div
+              className="col-span-1 px-4 py-2 h-12 bg-gray-300 rounded-lg"
+            />
+            <div
+              className="col-span-1 px-4 py-2 h-12 bg-gray-300 rounded-lg"
+            />
+          </div>
+        </div>
+      </div>,
+    ]
+  </main>,
+]
+`;
